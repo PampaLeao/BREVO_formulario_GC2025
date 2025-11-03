@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscreva-se no Boletim</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #EDE9D0; /* Bege suave */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #6D9C8A; /* Verde pastel suave */
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        section {
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #6D9C8A; /* Verde pastel suave */
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        p {
+            font-size: 1.1em;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        li::before {
+            content: "✓";
+            color: #6D9C8A;
+            position: absolute;
+            left: 0;
+        }
+        form {
+            background-color: #FFFFFF;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            margin-top: 10px;
+            text-align: left;
+            color: #6D9C8A;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #B5EAD7; /* Verde pastel suave para borda */
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #6D9C8A; /* Verde pastel suave */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #5A8877; /* Tom mais escuro para hover */
+        }
+        #message {
+            margin-top: 20px;
+            color: #6D9C8A;
+            font-weight: bold;
+            text-align: center;
+        }
+        #error {
+            margin-top: 20px;
+            color: red;
+            font-weight: bold;
+            text-align: center;
+        }
+        footer {
+            background-color: #6D9C8A;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo ao Boletim LuminaTech!</h1>
+    </header>
+
+    <div class="container">
+        <section id="explanation">
+            <h2>O Que Esperar da Nossa Assinatura</h2>
+            <p>Inscreva-se no nosso boletim para receber atualizações periódicas por e-mail. Você ficará por dentro das novidades, dicas e conteúdos exclusivos diretamente na sua caixa de entrada. É simples, rápido.</p>
+            <p>Nosso objetivo é fornecer informações valiosas que ajudem você no dia a dia, com foco em temas relevantes e atualizados. Junte-se a milhares de assinantes satisfeitos!</p>
+        </section>
+
+        <section id="about">
+            <h2>Sobre Nós</h2>
+            <p>Somos uma equipe dedicada a compartilhar conhecimento e inspirações. Nosso boletim começou como uma forma simples de conectar pessoas com conteúdo de qualidade.</p>
+            <p>Aqui vai um pouco mais sobre o que nos motiva:</p>
+            <ul>
+                <li>Compromisso com a qualidade: Cada e-mail é cuidadosamente elaborado para oferecer valor real.</li>
+                <li>Atualizações regulares: Enviamos conteúdos semanais ou mensais, dependendo do tema.</li>
+                <li>Privacidade em primeiro lugar: Seus dados são protegidos e usados apenas para envios relevantes.</li>
+                <li>Comunidade engajada: Nossos assinantes recebem acesso exclusivo a eventos e recursos.</li>
+            </ul>
+            <p>Estamos animados para tê-lo como parte da nossa comunidade!</p>
+        </section>
+
+        <section id="subscribe">
+            <h2>Inscreva-se Agora</h2>
+            <form id="subscriptionForm">
+                <label for="firstName">Nome:</label>
+                <input type="text" id="firstName" name="firstName">
+
+                <label for="lastName">Sobrenome:</label>
+                <input type="text" id="lastName" name="lastName">
+
+                <label for="email">E-mail (obrigatório):</label>
+                <input type="email" id="email" name="email" required>
+
+                <button type="submit">Inscrever-se</button>
+            </form>
+            <div id="message"></div>
+            <div id="error"></div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Boletim LuminaTech. Todos os direitos reservados. | <a href="#" style="color: white;">Política de Privacidade</a></p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('subscriptionForm');
+        const messageDiv = document.getElementById('message');
+        const errorDiv = document.getElementById('error');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('subscribe.php', { // Atualize para a URL completa se necessário, ex.: 'https://seudominio.epizy.com/subscribe.php'
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    messageDiv.textContent = result.message || 'Inscrição realizada com sucesso!';
+                    errorDiv.textContent = '';
+                    form.reset(); // Limpa o formulário após sucesso
+                } else {
+                    errorDiv.textContent = result.error || 'Ocorreu um erro.';
+                    messageDiv.textContent = '';
+                }
+            } catch (err) {
+                errorDiv.textContent = 'Erro de rede: ' + err.message;
+                messageDiv.textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>
