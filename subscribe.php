@@ -1,9 +1,9 @@
 <?php
 // Brevo API configuration
-$apiKey = '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'; // Replace with your v3 API key
-$listId = 3; // Replace with your Brevo list ID (integer)
+$apiKey = 'Minha_API';
+$listId = ~;
 
-// Get form data (assuming POST from HTML form)
+// Get form data
 $email = isset($_POST['email']) ? $_POST['email'] : '';
 $firstName = isset($_POST['firstName']) ? $_POST['firstName'] : '';
 $lastName = isset($_POST['lastName']) ? $_POST['lastName'] : '';
